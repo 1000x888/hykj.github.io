@@ -1,0 +1,153 @@
+* {
+    padding: 0;
+    margin: 0; 
+}
+
+ul {
+    list-style: none;
+}
+
+.con {
+    width: 966px;
+    margin: 0 auto;
+}
+
+.header{
+    width: 110px;
+}
+
+.photo {
+    width: 165px;
+    height: 110px;
+    background: url();
+    float: left;
+    background-position: center;
+    background-size: 100% 100%;
+}
+
+.headerlist {
+    float: right;
+}
+
+.headerlist ul {
+    height: 44px;
+    margin-top: 10px;
+    line-height: 44px;
+}
+
+.headerlist li {
+    float: left;
+}
+
+.headerlist a {
+    border-right: 1px solid #b2c7ea;
+    padding-left: 13px;
+    padding-right: 13px;
+    font-size: 13px;
+    color: indigo;
+}
+
+.headerlist .list {
+    border: 0;
+    padding-right: 0;
+}
+
+.headerlist li .active {
+    color: pink;
+}
+
+.serch {
+    float: right;
+    width: 234px;
+    height: 28px;
+    border: 1px solid indigo;
+}
+
+.serch input {
+    border: 0;
+    outline: none;
+    width: 210px;
+    float: left;
+    height: 28px;
+    padding-left: 14px;
+}
+
+.nrv{
+    height: 53px;
+    line-height: 53px;
+    border-top: 1px solid #edf4fc;
+    background-color: #274964;
+    color: aliceblue;
+}
+
+.nrv li {
+    float: left;
+    fout: size 16px;
+    padding-right: 76px;
+}
+
+.banner {
+    height: 380px;
+    background: url();
+    background-size: cover;
+}
+
+.list {
+    height: 213px;
+    margin-top: 51px;
+    margin-bottom: 35px;
+}
+
+.item {
+    height: 211px;
+    width: 305px;
+    border: 1px solid #cccccc;
+    float: left;
+    margin-right: 12px;
+}
+
+.item img {
+    width: 305px;
+    height: 165px;
+    display: block;
+}
+
+.item p {
+    height: 47px;
+    padding-left: 28px;
+    line-height: 47px;
+    color: #274964;
+}
+
+.footer {
+    height: 206px;
+    border-top: 1px solid cornsilk;
+    background-color: #cccccc;
+}
+
+.footer ul {
+    height: 84px;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    line-height: 28px;
+    border-bottom: 1px solid gray;
+}
+
+.footer ul li {
+    width: 210px;
+    padding-left: 30px;
+    font-size: 12px;
+    float: left;
+    color: indigo;
+}
+
+.footer p {
+    height: 61px;
+    line-height: 61px;
+    padding-left: 30px;
+    font-size: 12px;
+}
+
+.footer p span {
+    color: indigo;
+}

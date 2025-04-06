@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我们 - 广西华耀信息科技有限公司</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url('Unknown.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            font-family: "Microsoft YaHei", sans-serif;
+            min-height: 100vh;
+            color: white;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.6);
+            z-index: 0;
+        }
+
+        .header {
+            background-color: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s;
+        }
+
+        .nav-menu a:hover {
+            background-color: rgba(76, 175, 80, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .main-content {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 100px auto 40px;
+            padding: 20px;
+        }
+
+        .about-section {
+            background-color: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 30px;
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            color: #4CAF50;
+            font-size: 32px;
+            margin-bottom: 25px;
+            text-align: center;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .company-intro {
+            line-height: 1.8;
+            margin-bottom: 30px;
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .development-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 40px 0;
+        }
+
+        .development-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            border-radius: 12px;
+            transition: transform 0.3s;
+        }
+
+        .development-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .development-card h3 {
+            color: #4CAF50;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+
+        .development-card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .development-card li {
+            margin: 10px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+
+        .development-card li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+        }
+
+        .milestone-section {
+            margin: 40px 0;
+        }
+
+        .timeline {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-item {
+            margin-bottom: 30px;
+            padding-left: 30px;
+            border-left: 2px solid #4CAF50;
+            position: relative;
+        }
+
+        .timeline-item:before {
+            content: '';
+            position: absolute;
+            left: -8px;
+            top: 0;
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            background-color: #4CAF50;
+        }
+
+        .timeline-date {
+            color: #4CAF50;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .footer {
+            background-color: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        @media (max-width: 768px) {
+            .main-content {
+                margin-top: 80px;
+            }
+
+            .about-section {
+                padding: 20px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+
+            .development-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-menu">
+            <a href="index.html">返回首页</a>
+            <div>
+                <a href="#company">公司简介</a>
+                <a href="#development">发展方向</a>
+                <a href="#future">未来展望</a>
+            </div>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <section id="company" class="about-section">
+            <h2 class="section-title">公司简介</h2>
+            <div class="company-intro">
+                <p>广西华耀信息科技有限公司是一家专注于智慧城市解决方案的高新技术企业。公司成立以来，始终致力于为城市管理提供智能化、数字化的解决方案，通过创新技术助力城市发展。</p>
+                <p>我们的核心业务包括智能数据采集终端研发、智慧城市管理平台开发以及相关技术服务，为城市管理者提供全方位的智能化解决方案。</p>
+            </div>
+
+            <div class="milestone-section">
+                <h3 class="section-title">发展历程</h3>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-date">2022年</div>
+                        <div class="timeline-content">公司成立，开始智能终端研发</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2023年</div>
+                        <div class="timeline-content">推出首款数据采集终端F013</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2024年</div>
+                        <div class="timeline-content">智慧城市管理平台上线</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-date">2025年</div>
+                        <div class="timeline-content">获得多项技术专利认证</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="development" class="about-section">
+            <h2 class="section-title">发展方向</h2>
+            <div class="development-grid">
+                <div class="development-card">
+                    <h3>技术创新</h3>
+                    <ul>
+                        <li>人工智能技术应用</li>
+                        <li>物联网技术升级</li>
+                        <li>大数据分析能力提升</li>
+                        <li>云计算平台建设</li>
+                    </ul>
+                </div>
+
+                <div class="development-card">
+                    <h3>产品研发</h3>
+                    <ul>
+                        <li>新一代智能终端开发</li>
+                        <li>管理平台功能扩展</li>
+                        <li>数据安全解决方案</li>
+                        <li>智能分析工具升级</li>
+                    </ul>
+                </div>
+
+                <div class="development-card">
+                    <h3>市场拓展</h3>
+                    <ul>
+                        <li>区域市场深耕</li>
+                        <li>行业解决方案定制</li>
+                        <li>服务网络扩建</li>
+                        <li>战略合作伙伴发展</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section id="future" class="about-section">
+            <h2 class="section-title">未来展望</h2>
+            <div class="company-intro">
+                <p>展望未来，华耀信息将继续秉持"创新驱动发展"的理念，致力于：</p>
+                <ul style="margin-top: 20px; padding-left: 20px;">
+                    <li>持续推进技术创新，引领行业发展</li>
+                    <li>扩大产品应用范围，服务更多城市</li>
+                    <li>加强人才队伍建设，提升服务质量</li>
+                    <li>深化产学研合作，促进技术进步</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>版权所有 &copy; 广西华耀信息科技有限公司</p>
+    </footer>
+
+    <script>
+        // 平滑滚动效果
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // 添加页面滚动动画
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = 1;
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        });
+
+        document.querySelectorAll('.about-section').forEach(section => {
+            section.style.opacity = 0;
+            section.style.transform = 'translateY(20px)';
+            section.style.transition = 'all 0.6s ease';
+            observer.observe(section);
+        });
+    </script>
+</body>
+</html> 
