@@ -152,49 +152,41 @@
         }
 
         .log-entry {
-            padding: 8px;
+            display: grid;
+            grid-template-columns: 180px 80px 120px auto;
+            gap: 15px;
+            padding: 8px 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            display: flex;
-            gap: 10px;
+            font-family: monospace;
         }
 
         .log-time {
             color: #888;
-            min-width: 150px;
         }
 
         .log-type {
-            min-width: 80px;
+            text-align: center;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 12px;
         }
 
-        .log-type.info {
+        .log-type.heartbeat {
+            background-color: rgba(33, 150, 243, 0.2);
             color: #2196F3;
         }
 
-        .log-type.warning {
-            color: #FFC107;
-        }
-
-        .log-type.error {
-            color: #f44336;
-        }
-
-        .log-message {
-            color: #fff;
-            flex-grow: 1;
-            font-family: monospace;
-            word-break: break-all;
-            white-space: pre-wrap;
-        }
-
-        .log-message pre {
-            margin: 0;
-            padding: 5px 0;
+        .log-type.data {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
         }
 
         .log-device {
-            color: #4CAF50;
-            min-width: 120px;
+            color: #FFC107;
+        }
+
+        .log-count {
+            color: #fff;
         }
 
         /* 不同类型日志的颜色 */
@@ -239,7 +231,7 @@
             }
 
             .log-entry {
-                flex-direction: column;
+                grid-template-columns: 1fr;
                 gap: 5px;
             }
         }
@@ -277,15 +269,17 @@
                     <select id="deviceFilter">
                         <option value="all">全部设备</option>
                         <option value="Ser0007">Ser0007</option>
-                        <!-- 可以根据实际设备ID动态添加选项 -->
+                        <option value="Module_1">Module_1</option>
+                        <option value="Module_2">Module_2</option>
+                        <option value="Module_4">Module_4</option>
                     </select>
                 </div>
                 <div class="filter-group">
                     <label>日志类型：</label>
                     <select id="logLevel">
                         <option value="all">全部</option>
-                        <option value="心跳">心跳数据</option>
-                        <option value="数据">业务数据</option>
+                        <option value="heartbeat">心跳数据</option>
+                        <option value="data">业务数据</option>
                     </select>
                 </div>
             </div>
@@ -302,54 +296,79 @@
         // 获取日志数据
         async function fetchLogs() {
             try {
-                // 修改为直接读取 c_post.php
-                const response = await fetch('c_post.php');
-                const data = await response.json(); // 假设返回的是 JSON 格式数据
+                const response = await fetch('https://gxgw.no-1.vip/log.php?refresh=5');
+                const text = await response.text();
                 
+                // 解析日志内容
                 const logContent = document.getElementById('logContent');
+                // 使用正则表达式匹配日志条目
+                const logs = text.match(/\[\d{4}-\d{2}-\d{2}\s\d{2}:\d{2}:\d{2}\]\[INFO\].*$/gm);
                 
-                // 处理返回的数据
-                if (data && Array.isArray(data)) {
-                    const logEntries = data.map(entry => {
-                        // 解析日志数据
-                        const timestamp = new Date().toLocaleString(); // 或从数据中获取时间
-                        let logClass = 'info';
-                        let logType = 'INFO';
+                if (logs) {
+                    logContent.innerHTML = logs.map(log => {
+                        // 解析日志格式
+                        const timeMatch = log.match(/\[(.*?)\]/);
+                        const timestamp = timeMatch ? timeMatch[1] : '';
                         
-                        // 根据数据内容判断日志类型
-                        if (entry.post === "2") {
-                            logType = "心跳";
-                        } else if (entry.post === "1") {
-                            logType = "数据";
+                        // 解析 JSON 数据
+                        const jsonMatch = log.match(/POST data: ({.*})/);
+                        let moduleID = 'Unknown';
+                        let heartbeatCount = '';
+                        let postType = '';
+                        
+                        if (jsonMatch) {
+                            try {
+                                const data = JSON.parse(jsonMatch[1]);
+                                moduleID = data.moduleID;
+                                heartbeatCount = data.heartbeatCount;
+                                postType = data.post === "2" ? "心跳" : "数据";
+                            } catch (e) {
+                                console.error('JSON解析错误:', e);
+                            }
                         }
 
                         return `
                             <div class="log-entry">
                                 <span class="log-time">${timestamp}</span>
-                                <span class="log-type ${logClass}">${logType}</span>
-                                <span class="log-device">${entry.moduleID || 'Unknown'}</span>
-                                <span class="log-message">
-                                    ${JSON.stringify(entry)}
-                                </span>
+                                <span class="log-type ${postType === '心跳' ? 'heartbeat' : 'data'}">${postType}</span>
+                                <span class="log-device">${moduleID}</span>
+                                <span class="log-count">计数: ${heartbeatCount}</span>
                             </div>
                         `;
                     }).join('');
-
-                    logContent.innerHTML = logEntries;
+                    
+                    // 自动滚动到最新日志
                     logContent.scrollTop = logContent.scrollHeight;
                 }
             } catch (error) {
                 console.error('获取日志失败:', error);
-                const logContent = document.getElementById('logContent');
-                logContent.innerHTML += `
-                    <div class="log-entry">
-                        <span class="log-time">${new Date().toLocaleString()}</span>
-                        <span class="log-type error">ERROR</span>
-                        <span class="log-device">System</span>
-                        <span class="log-message">获取日志失败: ${error.message}</span>
-                    </div>
-                `;
             }
+        }
+
+        // 更新设备过滤器选项
+        function updateDeviceFilter() {
+            const deviceFilter = document.getElementById('deviceFilter');
+            const logEntries = document.querySelectorAll('.log-entry');
+            const devices = new Set();
+            
+            logEntries.forEach(entry => {
+                const deviceId = entry.querySelector('.log-device').textContent;
+                devices.add(deviceId);
+            });
+
+            // 保存当前选择
+            const currentSelection = deviceFilter.value;
+            
+            // 清空现有选项
+            deviceFilter.innerHTML = '<option value="all">全部设备</option>';
+            
+            // 添加新选项
+            devices.forEach(device => {
+                deviceFilter.innerHTML += `<option value="${device}">${device}</option>`;
+            });
+
+            // 恢复选择
+            deviceFilter.value = currentSelection;
         }
 
         // 添加日志过滤功能
@@ -362,7 +381,7 @@
                 const deviceMatch = deviceFilter === 'all' || entry.querySelector('.log-device').textContent.includes(deviceFilter);
                 const levelMatch = logLevel === 'all' || entry.querySelector('.log-type').textContent.toLowerCase() === logLevel;
                 
-                entry.style.display = deviceMatch && levelMatch ? 'flex' : 'none';
+                entry.style.display = deviceMatch && levelMatch ? 'grid' : 'none';
             });
         }
 
