@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>产品展示 - 华耀信息科技</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-image: url('Unknown.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            background-repeat: no-repeat;
+            font-family: "Microsoft YaHei", sans-serif;
+            min-height: 100vh;
+            color: white;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 0;
+        }
+
+        .header {
+            background-color: rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 100;
+        }
+
+        .nav-menu {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            transition: all 0.3s;
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-menu a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* 主内容样式 */
+        .main-content {
+            position: relative;
+            z-index: 1;
+            margin-top: 120px;
+            padding: 20px;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .page-title {
+            text-align: center;
+            font-size: 36px;
+            color: #fff;
+            margin-bottom: 40px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        /* 产品分类导航 */
+        .product-nav {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
+        }
+
+        .product-nav-item {
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .product-nav-item:hover, .product-nav-item.active {
+            background-color: #4CAF50;
+            transform: translateY(-3px);
+        }
+
+        /* 产品展示区域 */
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-bottom: 50px;
+        }
+
+        .product-card {
+            background-color: rgba(0, 0, 0, 0.7);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            overflow: hidden;
+            transition: transform 0.3s, box-shadow 0.3s;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .product-image {
+            position: relative;
+            width: 100%;
+            height: 250px;
+            background-color: rgba(0, 0, 0, 0.8);
+            overflow: hidden;
+        }
+
+        .product-img {
+            width: 90%;
+            height: 90%;
+            object-fit: contain;
+            object-position: center;
+            transition: transform 0.3s ease;
+            margin: 5%;
+        }
+
+        .product-info {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-info h3 {
+            color: #4CAF50;
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .product-type {
+            display: inline-block;
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+            font-size: 12px;
+            padding: 4px 10px;
+            border-radius: 20px;
+            margin-bottom: 15px;
+        }
+
+        .product-description {
+            color: #fff;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .product-features {
+            list-style: none;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            flex-grow: 1;
+        }
+
+        .product-features li {
+            color: #fff;
+            margin: 12px 0;
+            padding-left: 25px;
+            position: relative;
+            line-height: 1.4;
+        }
+
+        .product-features li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: auto;
+        }
+
+        .product-btn {
+            flex: 1;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 14px;
+            text-align: center;
+            text-decoration: none;
+        }
+
+        .product-btn:hover {
+            background-color: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .product-btn.secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .product-btn.secondary:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* 技术参数表格 */
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            background-color: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .specs-table th, .specs-table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .specs-table th {
+            background-color: rgba(76, 175, 80, 0.2);
+            color: #4CAF50;
+        }
+
+        .specs-toggle {
+            background: none;
+            border: none;
+            color: #4CAF50;
+            cursor: pointer;
+            padding: 5px;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-decoration: underline;
+        }
+
+        /* 页脚样式 */
+        .footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* 响应式调整 */
+        @media (max-width: 768px) {
+            .nav-menu {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .product-nav {
+                flex-direction: row;
+                overflow-x: auto;
+                padding-bottom: 10px;
+            }
+
+            .products-container {
+                grid-template-columns: 1fr;
+            }
+
+            .product-actions {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <nav class="nav-menu">
+            <a href="index.html">首页</a>
+            <a href="products.html" style="background-color: #4CAF50;">产品</a>
+            <a href="about.html">关于我们</a>
+            <a href="jr.html">联系我们</a>
+            <a href="debug.html">设备调试</a>
+        </nav>
+    </header>
+
+    <main class="main-content">
+        <h1 class="page-title">产品展示</h1>
+
+        <div class="product-nav">
+            <div class="product-nav-item active" data-category="all">全部产品</div>
+            <div class="product-nav-item" data-category="terminal">数据采集终端</div>
+            <div class="product-nav-item" data-category="server">数据接收终端</div>
+            <div class="product-nav-item" data-category="platform">智慧管理平台</div>
+        </div>
+
+        <div class="products-container">
+            <!-- 产品1 -->
+            <div class="product-card" data-category="terminal">
+                <div class="product-image">
+                    <img src="图片2.png" alt="多功能数据采集终端" class="product-img">
+                </div>
+                <div class="product-info">
+                    <span class="product-type">采集终端</span>
+                    <h3>多功能数据采集终端F013</h3>
+                    <p class="product-description">
+                        新一代智能数据采集终端，支持多种协议，具备高效稳定的数据传输能力。
+                    </p>
+                    <button class="specs-toggle" onclick="toggleSpecs('specs1')">查看技术参数</button>
+                    <div id="specs1" class="specs-content" style="display: none;">
+                        <table class="specs-table">
+                            <tr>
+                                <th>参数</th>
+                                <th>规格</th>
+                            </tr>
+                            <tr>
+                                <td>处理器</td>
+                                <td>ARM Cortex-A7</td>
+                            </tr>
+                            <tr>
+                                <td>通信接口</td>
+                                <td>RS485/RS232/以太网</td>
+                            </tr>
+                            <tr>
+                                <td>存储容量</td>
+                                <td>8GB</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <ul class="product-features">
+                        <li>多协议支持</li>
+                        <li>高速数据传输</li>
+                        <li>远程管理维护</li>
+                        <li>安全加密保护</li>
+                    </ul>
+                    <div class="product-actions">
+                        <a href="多功能采集上报系统产品页.7z" download="yh.html" class="product-btn">下载产品手册</a>
+                        <button class="product-btn secondary" onclick="showProductDetails('F013')">查看详情</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 产品2 -->
+            <div class="product-card" data-category="server">
+                <div class="product-image">
+                    <img src="图片3.png" alt="数据接收上报终端" class="product-img">
+                </div>
+                <div class="product-info">
+                    <span class="product-type">上报终端</span>
+                    <h3>数据接收上报终端G009</h3>
+                    <p class="product-description">
+                        集中管理平台，实时监控，智能分析，数据可视化。
+                    </p>
+                    <button class="specs-toggle" onclick="toggleSpecs('specs2')">查看技术参数</button>
+                    <div id="specs2" class="specs-content" style="display: none;">
+                        <table class="specs-table">
+                            <tr>
+                                <th>参数</th>
+                                <th>规格</th>
+                            </tr>
+                            <tr>
+                                <td>处理器</td>
+                                <td>ARM Cortex-A53</td>
+                            </tr>
+                            <tr>
+                                <td>通信接口</td>
+                                <td>4G/WiFi/以太网</td>
+                            </tr>
+                            <tr>
+                                <td>存储容量</td>
+                                <td>32GB</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <ul class="product-features">
+                        <li>实时监控</li>
+                        <li>数据分析</li>
+                        <li>可视化展示</li>
+                        <li>智能预警</li>
+                    </ul>
+                    <div class="product-actions">
+                        <a href="多功能采集上报系统产品页.7z" download="yh.html" class="product-btn">下载产品手册</a>
+                        <button class="product-btn secondary" onclick="showProductDetails('G009')">查看详情</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 产品3 -->
+            <div class="product-card" data-category="platform">
+                <div class="product-image">
+                    <img src="WechatIMG57.png" alt="智慧城市管理平台" class="product-img">
+                </div>
+                <div class="product-info">
+                    <span class="product-type">管理平台</span>
+                    <h3>智慧城市管理平台</h3>
+                    <p class="product-description">
+                        智能化城市管理系统，整合多源数据，提供全方位监控分析方案。
+                    </p>
+                    <button class="specs-toggle" onclick="toggleSpecs('specs3')">查看技术参数</button>
+                    <div id="specs3" class="specs-content" style="display: none;">
+                        <table class="specs-table">
+                            <tr>
+                                <th>参数</th>
+                                <th>规格</th>
+                            </tr>
+                            <tr>
+                                <td>服务器配置</td>
+                                <td>Intel Xeon E5</td>
+                            </tr>
+                            <tr>
+                                <td>数据库</td>
+                                <td>MySQL/MongoDB</td>
+                            </tr>
+                            <tr>
+                                <td>用户接入量</td>
+                                <td>10000+</td>
+                            </tr>
+                        </table>
+                    </div>
+                    <ul class="product-features">
+                        <li>管网地图实时监控</li>
+                        <li>设备状态管理与监测</li>
+                        <li>多设备协同监控系统</li>
+                        <li>环境监测模块</li>
+                    </ul>
+                    <div class="product-actions">
+                        <a href="多功能采集上报系统产品页.7z" download="yh.html" class="product-btn">下载产品手册</a>
+                        <a href="pt.html" class="product-btn secondary">查看详情</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <p>版权所有 &copy; 广西华耀信息科技有限公司</p>
+    </footer>
+
+    <script>
+        // 产品分类筛选功能
+        document.querySelectorAll('.product-nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                // 高亮当前选中项
+                document.querySelectorAll('.product-nav-item').forEach(el => {
+                    el.classList.remove('active');
+                });
+                this.classList.add('active');
+                
+                const category = this.getAttribute('data-category');
+                
+                // 筛选产品
+                document.querySelectorAll('.product-card').forEach(card => {
+                    if (category === 'all' || card.getAttribute('data-category') === category) {
+                        card.style.display = 'flex';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+        });
+
+        // 显示/隐藏技术参数
+        function toggleSpecs(id) {
+            const specsContent = document.getElementById(id);
+            if (specsContent.style.display === 'none') {
+                specsContent.style.display = 'block';
+            } else {
+                specsContent.style.display = 'none';
+            }
+        }
+
+        // 查看产品详情
+        function showProductDetails(productId) {
+            alert(`您正在查看${productId}的详细信息，详情页面正在建设中...`);
+        }
+
+        // 下载前确认
+        document.querySelectorAll('a[download]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                if (!confirm('确认下载产品手册？')) {
+                    e.preventDefault();
+                } else {
+                    setTimeout(() => {
+                        alert('下载已开始，请检查您的下载文件夹');
+                    }, 100);
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
