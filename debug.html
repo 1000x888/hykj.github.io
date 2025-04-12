@@ -13,7 +13,7 @@
         }
 
         body {
-            background-image: url('Unknown.png');
+            background-image: url('smart-city-bg.jpg');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
@@ -210,6 +210,18 @@
             margin-top: 5px;
         }
 
+        /* 底部版权栏样式 */
+        .footer {
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            position: relative;
+            width: 100%;
+            z-index: 10;
+            margin-top: 30px;
+        }
+
         /* 响应式适配 */
         @media (max-width: 768px) {
             .nav-menu {
@@ -255,7 +267,7 @@
                 <div class="log-controls">
                     <button class="control-btn" id="refreshBtn">刷新</button>
                     <button class="control-btn" id="clearBtn">清空</button>
-                    <select id="refreshInterval" class="control-btn">
+                    <select id="refreshInterval" class="control-btn" aria-label="刷新间隔">
                         <option value="5000">5秒刷新</option>
                         <option value="10000">10秒刷新</option>
                         <option value="30000">30秒刷新</option>
@@ -266,7 +278,7 @@
             <div class="log-filters">
                 <div class="filter-group">
                     <label>设备筛选：</label>
-                    <select id="deviceFilter">
+                    <select id="deviceFilter" aria-label="设备筛选">
                         <option value="all">全部设备</option>
                         <option value="Ser0007">Ser0007</option>
                         <option value="Module_1">Module_1</option>
@@ -276,7 +288,7 @@
                 </div>
                 <div class="filter-group">
                     <label>日志类型：</label>
-                    <select id="logLevel">
+                    <select id="logLevel" aria-label="日志类型">
                         <option value="all">全部</option>
                         <option value="heartbeat">心跳数据</option>
                         <option value="data">业务数据</option>
@@ -418,5 +430,9 @@
             clearInterval(updateInterval);
         });
     </script>
+    
+    <footer class="footer">
+        <p>版权所有 &copy; 广西华耀信息科技有限公司</p>
+    </footer>
 </body>
 </html> 
